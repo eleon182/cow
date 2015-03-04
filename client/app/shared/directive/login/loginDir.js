@@ -7,7 +7,7 @@
     function ecsLoginFormDir() {
         return {
             restrict: 'EA',
-            templateUrl: 'app/directive/template/loginTml.html',
+            templateUrl: 'app/shared/directive/login/loginTml.html',
             replace: true,
             scope: {
                 config: '=',

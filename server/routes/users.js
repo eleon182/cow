@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var player = require('../game/player')
+var player = require('../api/player/player');
 
 
 router.post('/login', function(req, res) {
-	res.send('ok')
+	res.send('ok');
 });
 router.post('/create', function(req, res) {
-	res.send('ok')
+	res.send('ok');
 
 });
 
@@ -16,12 +16,12 @@ router.get('/', function(req, res) {
 	var signup = {
 		name: 'steve',
 		password: 'leon'
-	}
-	var playerId = player.createPlayer(signup)
+	};
+	var playerId = player.createPlayer(signup);
 	res.send({
 		output: 'Login successful. PlayerId: ' + playerId,
 		id: playerId
-	})
+	});
 });
 
 module.exports = router;

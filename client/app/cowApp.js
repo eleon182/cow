@@ -28,14 +28,14 @@
             	url: '/',
             	config: {
             		title: 'Login',
-            		templateUrl: 'appviews/login.html'
+            		templateUrl: '/app/pages/login/login.html'
             	}
             },			
             {
               url: '/home',
               config: {
                 title: 'Home',
-                templateUrl: 'appviews/home.html'
+                templateUrl: '/app/pages/home/home.html'
               }
             },      
 		];

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var commands = require('../game/commands')
+var commands = require('../api/commands')
 router.post('/', function(req, res) {
 	res.send(commands.process(req.body))
 });

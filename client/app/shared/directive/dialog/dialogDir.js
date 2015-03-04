@@ -8,7 +8,7 @@
             link: link,
             restrict: 'EA',
             replace: false,
-            templateUrl: 'app/directive/template/dialogTml.html',
+            templateUrl: 'app/shared/directive/dialog/dialogTml.html',
             scope: {
                 data: '=',
                 config: '=',

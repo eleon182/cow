@@ -6,13 +6,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/main');
-var users = require('./routes/users');
-var execute = require('./routes/execute');
+var users = require('./server/routes/users');
+var execute = require('./server/routes/execute');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'server/views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
@@ -21,9 +20,9 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
-app.use('/', routes);
+//app.use('/', routes);
 app.use('/users', users);
 app.use('/execute', execute);
 

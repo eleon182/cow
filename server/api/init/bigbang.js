@@ -1,5 +1,5 @@
 var bigbang = {}
-var units = require('./units')
+var units = require('../game/units')
 
 var factors = {
 	gold: 200,

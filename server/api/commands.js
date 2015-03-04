@@ -1,4 +1,4 @@
-var game = require('./game')
+var game = require('./game/game')
 var commands = {}
 var list = [
 {output:'(d) Get Status'},
