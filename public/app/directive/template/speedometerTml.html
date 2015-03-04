@@ -1,0 +1,17 @@
+<div>
+    <div id="ecsScorePlannerSpeedometer">
+        <div class="infoSummary">
+            Current FICO<sup>&reg;</sup> Score powered by Experian<sup>&#0153;</sup> as of {{sanitized.data.scoreDate | date:'mediumDate'}}: <br />
+            <span ng-bind="sanitized.data.currentScore"></span>, <span ng-bind="sanitized.data.currentScoreRisk"></span>
+        </div>
+        <canvas id="speedometer"></canvas>
+        <div class="undertext">
+            <div class="potentialRisk"><span ng-bind="sanitized.data.potentialScoreRisk"></span></div>
+            <div class="goalLink">
+                <button ng-if="sanitized.config.showSetGoal" ng-show="showButton && (sanitized.data.currentScore < sanitized.data.potentialScore)" href='' ng-click='setGoal()' ng-bind="sanitized.data.buttonText"></button>
+                <div ng-show='goalSet' class="label label-success">Goal Set!</div>
+                <div ng-show='goalSetError' class="label label-danger">Error. Try Later</div>
+            </div>
+        </div>
+    </div>
+</div>

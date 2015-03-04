@@ -1,0 +1,13 @@
+<div ng-controller='homeCtrl as vm'>
+	<div ng-if='false' class='currentTime' ng-bind='vm.currentTime'>
+	</div>
+	<div class=' inputboxfooter'>
+		<input class='form-control' ng-model='vm.mainInput' autofocus ng-keypress='vm.keyPress($event)'>
+	</div>
+	<div class='col-sm-12'>
+		<dialog-dir data = 'vm.dialogData'>
+		</dialog-dir>
+	</div>
+</div>
+
+

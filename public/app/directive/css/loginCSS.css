@@ -1,0 +1,89 @@
+﻿.loginForm {
+  /*TEMPORARY GLOBAL STYLES*/
+}
+.loginForm a {
+  color: #015cae;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.loginForm a:link {
+  color: #015cae;
+  text-decoration: none;
+}
+.loginForm a:visited {
+  color: #015cae;
+  text-decoration: none;
+}
+.loginForm a:hover {
+  color: #014e94;
+  text-decoration: none;
+}
+.loginForm a:active {
+  color: #015cae;
+  text-decoration: none;
+}
+.loginForm label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #707070;
+}
+.loginForm input[type="text"],
+.loginForm input[type="password"] {
+  max-width: none;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0;
+  border: 1px solid #e9e9e9;
+}
+.loginForm .passwordMessage {
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: normal;
+  color: #707070;
+  line-height: normal;
+}
+.loginForm .actionContainer {
+  display: table;
+}
+.loginForm .buttonContainer {
+  display: table-cell;
+}
+.loginForm .helpContainer {
+  display: table-cell;
+  padding-left: 30px;
+}
+.loginForm .btn .btnContent {
+  display: table;
+  width: 100%;
+}
+.loginForm .btn .btnLabel {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.loginForm .btn .btnIcon {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  padding-left: 10px;
+}
+.loginForm .btn-type1 {
+  border-radius: 0;
+  border: none;
+  background-color: #015cae;
+  background-image: none;
+  padding: 8px 12px;
+}
+.loginForm .btn-type1 .btnLabel {
+  color: #fff;
+}
+.loginForm .btn-type1 .btnIcon {
+  color: rgba(255, 255, 255, 0.5);
+}
+/*# sourceMappingURL=ecsLoginFormCSS.css.map */
