@@ -1,91 +1,53 @@
 var nav = {};
 var q = require ('q');
 var universe = require ('./universe');
-
 nav.getPath = function(start,end){
-    var list = [{del:false, data:[start]}];
-    var visited = [start];
-    if(start == end ){
-        return [start];
-    }
-    else{
-        var links, conc = [];
-        for(var i = 0 ; i < list.length; i ++){
-
-            universe.querySector(list[i], function(val){
-
-                val.forEach(function(inner){
-
-                    if(inner == end){
-                        list[i].push(end);
-                        return list[i];
-                    }
-                    else{
-
-                        visited.push(inner);
-                        for(var j = 0 ; j < list.length ; j ++){
-
-                            
-                            list[j].forEach(function(inner2){
-                                if(visited.indexOf(inner2)){
-
-
-                                }
-
-
-                            });
-
-                        };
-
-                    }
-
-                });
-
-            });
-
-        }
-
-    }
 };
-function determineDelete(a, visited){
-    var resp = true;
+function determineDelete(a, visited, index){
+    var resp = {index: index, value: true};
     a.forEach(function(val){
-        if(visited.indexOf(val)){
-            resp = false;
+        if(visited.indexOf(val)==-1){
+            resp.value = false;
         }
     });
     return resp;
 }
-deleteDeadEnds([[1,2,3],[4,5,6]], [2729,4464,6942,7763]).then( function(val){
-    console.log(val);
-    val.forEach(function(d){
-        console.log(d);
-    });
-});
+//deleteDeadEnds([[1,2,3],[4,5,6]], ['4006','1096','1539','2729','4464','6942','7763']).then(function(val){console.log(val)});
 function deleteDeadEnds(list, visited ){
-
-    var q = q.defer();
     var resp = [];
-    var x = 0;
-    while(x < list.length){
-        (function(async){
-            universe.querySector(list[async][list[async].length-1], function(val){
-                if(determineDelete(val,visited)){
-                    resp.push(async);
-                    console.log(resp);
-                }
-                console.log(list);
-                if(async>=list.length){
-                    console.log(resp);
-                    resp.forEach(function(val){
-                        list.splice(val,1);
-                    });
-                    q.resolve(list);
-                }
+    var Q=q.defer();
+    findDeadEnds(list,visited).then(function(val){
+        list.forEach(function(a, index){
+            if(val.indexOf(index)==-1){
+                resp.push(a);
+            }
+        });
+        Q.resolve(resp);
+    });
+    return Q.promise;
+        
+}
+function findDeadEnds(list, visited ){
+    var Q = q.defer();
+    var resp = [];
+    var count = 0;
+    list.forEach(function(a, index){
+        universe.querySectorPromise(a[a.length-1]).then(function(val){
+            var temp = [];
+            val.forEach(function(a){
+                temp.push(a.link.N);
             });
-        }(x));
-        x++;
-    }
-    return q.promise;
+            
+            var b = determineDelete(temp,visited, index);
+            if(b.value){
+                resp.push(b.index);
+            }
+            if(count == list.length-1){
+                Q.resolve(resp);
+            }
+            count ++;
+        });
+    });
+    return Q.promise;
 }
 module.exports = nav;

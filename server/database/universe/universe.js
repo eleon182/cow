@@ -1,5 +1,6 @@
 var universe= {};
 
+var q = require('q');
 var bigbang = require('./bigbang');
 var db = require('../dynamodb');
 var constants = {
@@ -13,6 +14,54 @@ universe.init = function(){
   var univ = bigbang.create(constants.start, constants.end, constants.depth);
   insertUniverse(univ);
 };
+universe.querySectorPromise = function(sector){
+    var Q = q.defer();
+    var params = {
+        TableName : 'navigation',
+        KeyConditions : {
+            "sector" : {
+                "AttributeValueList" : [ { "N" :sector.toString() } ],
+                "ComparisonOperator" : "EQ"
+            }        
+        }
+    };
+    db.query(params, function(err, data) {
+        if (err) {
+            Q.reject(err);
+        } else {
+            Q.resolve(data.Items);
+        }
+    });
+    return Q.promise
+};
+universe.batchGetItem = function (sectors){
+
+    var Q = q.defer();
+
+    var temp = [];
+    sectors.forEach(function(val){
+        temp.push({
+            sector: {
+                N:val.toString()
+            }
+        });
+    });
+    var params = {
+        RequestItems:{
+            navigation : {Keys:temp}
+        }
+    };
+    db.batchGetItem(params, function(err, data) {
+        if (err) {
+            Q.reject(err);
+        } else {
+            Q.resolve(data.Items);
+        }
+    });
+
+    return Q.promise;
+
+}
 universe.querySector = function(sector, callback){
     var params = {
         TableName : 'navigation',
