@@ -1,4 +1,5 @@
 var nav = {};
+var q = require ('q');
 var universe = require ('./universe');
 
 nav.getPath = function(start,end){
@@ -46,35 +47,45 @@ nav.getPath = function(start,end){
 
     }
 };
-var a = [1,2,3];
-deleteDeadEnds(a,b);
-function getLinks(list, callback){
-
-    var resp = [];
-    for(var x = 0;  x < list.length ; x++){
-
-
-    }
+function determineDelete(a, visited){
+    var resp = true;
+    a.forEach(function(val){
+        if(visited.indexOf(val)){
+            resp = false;
+        }
+    });
+    return resp;
 }
-function deleteDeadEnds(list, visited){
+deleteDeadEnds([[1,2,3],[4,5,6]], [2729,4464,6942,7763]).then( function(val){
+    console.log(val);
+    val.forEach(function(d){
+        console.log(d);
+    });
+});
+function deleteDeadEnds(list, visited ){
 
+    var q = q.defer();
     var resp = [];
     var x = 0;
     while(x < list.length){
-        universe.querySector(list[x][list[x].length-1], function(val){
-            var del= true;
-            val.forEach(function(inner){
-                if(visited.indexOf(inner)==-1){
-                    del = false;
+        (function(async){
+            universe.querySector(list[async][list[async].length-1], function(val){
+                if(determineDelete(val,visited)){
+                    resp.push(async);
+                    console.log(resp);
+                }
+                console.log(list);
+                if(async>=list.length){
+                    console.log(resp);
+                    resp.forEach(function(val){
+                        list.splice(val,1);
+                    });
+                    q.resolve(list);
                 }
             });
-            if(del){
-                list.splice(x,1);
-            }
-            else{
-                x++;
-            }
-        });
+        }(x));
+        x++;
     }
+    return q.promise;
 }
 module.exports = nav;
