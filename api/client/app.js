@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var http = require('http');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -14,8 +13,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -27,18 +24,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.get('/api/*', function(req, res) {
     var options = {
-        // host to forward to
         host: 'localhost',
-        // port to forward to
         port: 4001,
-        // path to forward to
         path: req.originalUrl.replace('/api', ''),
-        // request method
         method: 'GET',
-        // headers to send
         headers: req.headers
     };
-    console.log(options);
     var creq = http.request(options, function(cres) {
 
         // set encoding
@@ -46,18 +37,22 @@ app.get('/api/*', function(req, res) {
 
         // wait for data
         cres.on('data', function(chunk) {
+            console.log('data');
             res.write(chunk);
         });
 
         cres.on('close', function() {
             // closed, let's end client request as well
+            console.log('close');
+
             res.writeHead(cres.statusCode);
             res.end();
         });
 
         cres.on('end', function() {
             // finished, let's finish client request as well
-            res.writeHead(cres.statusCode);
+            console.log('end');
+            //res.writeHead(cres.statusCode);
             res.end();
         });
 
