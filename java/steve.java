@@ -1,4 +1,4 @@
-public class steve {
+public class steve implements myinterface{
     private int myint;
 
     public steve() {
@@ -6,5 +6,8 @@ public class steve {
     }
     public int getmyint() {
         return myint;
+    }
+    public void setmyint(int enters) {
+        myint = enters;
     }
 }
