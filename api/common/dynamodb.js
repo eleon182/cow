@@ -103,7 +103,6 @@ function getItem(key, table) {
     };
 
     db.getItem(params, function(err, data) {
-        debug('dynamodb: getitem()', err, data);
         if (err || lo.isEmpty(data)) {
             deferred.reject(err);
         } else {

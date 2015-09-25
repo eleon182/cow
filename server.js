@@ -28,7 +28,32 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+
+app.use('*', function(req, res, next) {
+    debug('server: req.body', req.body);
+
+    var token = req.headers.authorization;
+
+    if (!token) {
+        res.status(401).json({
+            code: 'tokenNotFound',
+            description: 'Valid Token Required'
+        });
+    } else {
+        api.token.validate(token).then(function(val) {
+            req.headers.username = val.username;
+            next();
+        }, function(err) {
+            res.status(401).json({
+                code: 'invalidToken',
+                description: 'Valid Token Required'
+            });
+        });
+    }
+});
+
 app.use('/api/navigation', api.navigation);
+app.use('/api/userProfile', api.userProfile);
 app.use('/api/version', function(req, res) {
     exec('git log --stat -1', function(error, stdout, stderr) {
         if (error) {
@@ -40,7 +65,6 @@ app.use('/api/version', function(req, res) {
         res.send('<div style="white-space: pre">' + stdout + '</div>');
     });
 });
-
 
 // Static files served
 app.use(express.static(path.join(__dirname, 'public')));

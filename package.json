@@ -1,12 +1,12 @@
 {
-  "name": "registration-tools",
-  "version": "1.0.1",
-  "description": "ui-tools for corvette back end",
+  "name": "cow",
+  "version": "1.0.0",
+  "description": "cow app",
   "main": "app.js",
   "author": "Esteban Leon",
   "private": true,
   "scripts": {
-    "start": "DEBUG=main nodemon -e js --exec sh bin/execute.sh",
+    "start": "AWS_PROFILE=steve DEBUG=main nodemon -e js --exec sh bin/execute.sh",
     "postinstall": "bower install"
   },
   "devDependencies": {
