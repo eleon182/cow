@@ -1,3 +1,3 @@
 module.exports = {
-    employee: require('./employee-route'),
+    navigation: require('./navigation-route'),
 };
