@@ -23,12 +23,15 @@ app.use('/api', function(req, res, next) {
     debug('server.js', req.url, req.method);
     next();
 });
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 app.use(cookieParser());
 
+app.use('/api/login', api.login);
 app.use('*', function(req, res, next) {
     debug('server: req.body', req.body);
 
