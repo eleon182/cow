@@ -10,34 +10,34 @@ module.exports = validate;
 
 var table = 'cow-user-security';
 
-function validate(params) {
-    var deferred = q.defer();
-    if (!(params.username && params.password)) {
-        deferred.reject({
+function validate(data, callback) {
+    if (!(data.username && data.password)) {
+        callback({
             code: 'missingFields',
             description: 'Required fields: username, password'
-        });
+        }, null);
     } else {
         var key = {
             username: {
-                "S": params.username
+                "S": data.username
             }
         };
-        common.db.getItem(key, table).then(function(data) {
-            if (bcrypt.compareSync(params.password, data.password)) {
-                deferred.resolve();
-            } else {
-                deferred.reject({
+        common.db.getItem(key, table, function(err, response) {
+            if (err) {
+                return callback({
                     code: 'invalidCredentials',
                     description: 'User credentials do not match'
-                });
+                }, null);
+            } else {
+                if (bcrypt.compareSync(response.password, data.password)) {
+                    return callback(null, null);
+                } else {
+                    return callback({
+                        code: 'invalidCredentials',
+                        description: 'User credentials do not match'
+                    }, null);
+                }
             }
-        }, function(err) {
-            deferred.reject({
-                code: 'invalidCredentials',
-                description: 'User credentials do not match'
-            });
         });
     }
-    return deferred.promise;
 }

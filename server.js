@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 app.use('/api/login', api.login);
-app.use('*', function(req, res, next) {
+app.use('/api', function(req, res, next) {
     debug('server: req.body', req.body);
 
     var token = req.headers.authorization;
@@ -43,14 +43,17 @@ app.use('*', function(req, res, next) {
             description: 'Valid Token Required'
         });
     } else {
-        api.token.validate(token).then(function(val) {
-            req.headers.username = val.username;
-            next();
-        }, function(err) {
-            res.status(401).json({
-                code: 'invalidToken',
-                description: 'Valid Token Required'
-            });
+        api.token.validate(token, function(err, val) {
+            if (err) {
+                res.status(401).json({
+                    code: 'invalidToken',
+                    description: 'Valid Token Required',
+                    message: err
+                });
+            } else {
+                req.headers.username = val.username;
+                next();
+            }
         });
     }
 });
@@ -66,6 +69,13 @@ app.use('/api/version', function(req, res) {
         }
 
         res.send('<div style="white-space: pre">' + stdout + '</div>');
+    });
+});
+
+app.use('/api', function(req, res, next) {
+    res.status(501).send({
+        code: 'invalidRoute',
+        description: 'Api route not found',
     });
 });
 

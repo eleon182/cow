@@ -1,7 +1,6 @@
 var AWS = require('aws-sdk');
 var debug = require('debug')('main');
 var lo = require('lodash');
-var q = require('q');
 AWS.config.update({
     region: 'us-west-2',
     // profile: 'steve'
@@ -21,132 +20,108 @@ module.exports = {
     listTables: listTables
 };
 
-function listTables(params){
-    var deferred = q.defer();
-
+function listTables(params, callback) {
     db.listTables(params, function(err, data) {
         if (err) {
-            deferred.reject(err);
+            return callback(err, null);
         } else {
-            deferred.resolve(data);
+            return callback(null, data);
         }
     });
-    return deferred.promise;
 }
-function updateItem(key, expression, values, table) {
-    var deferred = q.defer();
-    var params = {
-        TableName: table,
-        Key: key,
-        UpdateExpression: expression,
-        ExpressionAttributeValues: values
-    };
+
+function updateItem(params, callback) {
+    // var params = {
+    //     TableName: params.table,
+    //     Key: params.key,
+    //     UpdateExpression: params.expression,
+    //     ExpressionAttributeValues: params.values
+    // };
 
     db.updateItem(params, function(err, data) {
         if (err) {
-            deferred.reject(err);
+            return callback(err, null);
         } else {
-            deferred.resolve(data);
+            return callback(null, data);
         }
     });
-    return deferred.promise;
 }
 
-function query(key, table) {
-    var deferred = q.defer();
-    var params = {
-        TableName: table,
-        KeyConditions: key
-            //KeyConditions: {
-            //env: {
-            //ComparisonOperator: 'EQ',
-            //AttributeValueList: [{
-            //S: env
-            //}]
-            //}
-            //}
-    };
+function query(params, callback) {
+    // var params = {
+    //     TableName: table,
+    //     KeyConditions: key
     db.query(params, function(err, data) {
         if (err) {
-            deferred.reject(err);
+            return callback(err, null);
         } else {
             dataHelper.removeKey(data.Items);
-            deferred.resolve(data.Items);
+            return callback(null, data.Items);
         }
     });
-    return deferred.promise;
 }
 
-function deleteItem(key, table) {
-    var deferred = q.defer();
-    var params = {
-        TableName: table,
-        Key: key
-    };
+function deleteItem(params, callback) {
+    // var params = {
+    //     TableName: table,
+    //     Key: key
+    // };
 
     db.deleteItem(params, function(err, data) {
         if (err) {
-            deferred.reject(err);
+            return callback(err, null);
         } else {
-            deferred.resolve(data);
+            return callback(null, data);
         }
     });
-    return deferred.promise;
 }
 
-function getItem(key, table) {
-    var deferred = q.defer();
-
-    var params = {
-        TableName: table,
-        Key: key
-    };
+function getItem(params, callback) {
+    // var params = {
+    //     TableName: table,
+    //     Key: key
+    // };
 
     db.getItem(params, function(err, data) {
         if (err || lo.isEmpty(data)) {
-            deferred.reject(err);
+            return callback(err, null);
         } else {
             try {
                 dataHelper.removeKey(data.Item);
-                deferred.resolve(data.Item);
+                return callback(null, data.Item);
             } catch (e) {
-                deferred.reject(e);
+                return callback(e, null);
             }
         }
     });
-    return deferred.promise;
 }
 
-function scan(table) {
-    var deferred = q.defer();
-    var params = {
-        TableName: table
-    };
+function scan(params, callback) {
+    // var params = {
+    //     TableName: table
+    // };
     db.scan(params, function(err, data) {
         if (err) {
-            deferred.reject(err);
+            callback(err, null);
         } else {
             dataHelper.removeKey(data.Items);
-            deferred.resolve(data.Items);
+            callback(null, data.Items);
         }
     });
-    return deferred.promise;
 }
 
-function putItem(item, table) {
-    var deferred = q.defer();
-
-    db.putItem({
-        TableName: table,
-        Item: item
-    }, function(err, data) {
+function putItem(params,callback) {
+    // var params = {
+    //     TableName: table,
+    //     Item: item
+    // }
+    db.putItem(params, function(err, data) {
         debug('putitem: ', err, table, item);
         if (err) {
-            deferred.reject(err);
+            return callback(err, null);
         } else {
-            deferred.resolve(data);
+            return callback(null, data);
         }
 
     });
-    return deferred.promise;
 }

@@ -4,18 +4,25 @@ module.exports = updateSector;
 
 var table = 'cow-user-profile';
 
-function updateSector(params) {
+function updateSector(data, callback) {
     var key = {
         username: {
-            'S': params.username
+            'S': data.username
         },
     };
     var expression = "set sector= :val1";
     var values = {
         ':val1': {
-            'S': params.sector
+            'S': data.sector
         }
     };
 
-    return common.db.updateItem(key, expression, values, table);
+    var params = {
+        TableName: table,
+        Key: key,
+        UpdateExpression: expression,
+        ExpressionAttributeValues: values
+    };
+
+    common.db.updateItem(params, callback);
 }

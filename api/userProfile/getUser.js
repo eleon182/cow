@@ -1,17 +1,26 @@
 var common = require('../common');
+var navigation = require('../navigation');
 
 module.exports = getUser;
 
 var table = 'cow-user-profile';
 
-function getUser(params) {
-    var key = {
-        username: {
-            ComparisonOperator: 'EQ',
-            AttributeValueList: [{
-                S: params.username
-            }]
+function getUser(data, callback) {
+    var params = {
+        TableName: table,
+        Key: {
+            username: {
+                "S": data.username
+            }
         }
     };
-    return common.db.query(key, table);
+    common.db.getItem(params, function(err, response){
+        if(err){
+           return callback(err);
+        }
+        else {
+            response.adjacent = navigation.getAdjacent(response.sector);
+            return callback(null, response);
+        }
+    });
 }

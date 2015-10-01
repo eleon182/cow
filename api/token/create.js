@@ -7,28 +7,30 @@ module.exports = create;
 
 var table = 'cow-token';
 
-function create(data) {
-    var deferred = q.defer();
+function create(data, callback) {
     debug('create: ' + JSON.stringify(data));
     var token = uuid.v1();
-    var item = {
-        username: {
-            'S': data.username
-        },
-        token: {
-            'S': token
-        },
-        createDate: {
-            'S': new Date().toISOString()
-        },
+    var params = {
+        TableName: table,
+        Item: {
+            username: {
+                'S': data.username
+            },
+            token: {
+                'S': token
+            },
+            createDate: {
+                'S': new Date().toISOString()
+            },
+        }
     };
-    common.db.putItem(item, table).then(function(val) {
-            deferred.resolve({
+    common.db.putItem(params, function(err, data) {
+        if (err) {
+            return callback(err, data);
+        } else {
+            return callback(null, {
                 token: token
             });
-        },
-        function(err) {
-            deferred.reject(err);
-        });
-    return deferred.promise;
+        }
+    });
 }

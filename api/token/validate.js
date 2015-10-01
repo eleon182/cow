@@ -1,15 +1,17 @@
-
 var common = require('../common');
 
 module.exports = validate;
 
 var table = 'cow-token';
 
-function validate(token) {
-    var key = {
-        "token": {
-            "S": token
-        }
+function validate(token, callback) {
+    var params = {
+        Key: {
+            "token": {
+                "S": token
+            }
+        },
+        TableName: table
     };
-    return common.db.getItem(key, table);
+    common.db.getItem(params, callback);
 }
