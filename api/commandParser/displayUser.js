@@ -4,7 +4,6 @@ module.exports = displayUser;
 
 function displayUser(arg, callback){
     userProfile.getUser(arg, function(err, response){
-        console.log(response);
         if(err){
             return callback({
                 error: 'User not found',
