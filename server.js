@@ -31,6 +31,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
+app.use('/api/slack', api.slack);
 app.use('/api/login', api.login);
 app.use('/api', function(req, res, next) {
     debug('server: req.body', req.body);

@@ -1,4 +1,6 @@
 var express = require('express');
+var uuid = require('node-uuid');
+var common = require('./common');
 var debug = require('debug')('main');
 var router = express.Router();
 
@@ -11,10 +13,14 @@ router.post('/', function(req, res, next) {
 });
 
 function create(data, callback) {
+    var token = uuid.v1();
     var input = JSON.stringify(data);
     var params = {
         TableName: table,
         Item: {
+            id: {
+                'S': token
+            },
             data: {
                 'S': input
             },
@@ -23,15 +29,7 @@ function create(data, callback) {
             },
         }
     };
-    common.db.putItem(params, function(err, data) {
-        if (err) {
-            return callback(err, data);
-        } else {
-            return callback(null, {
-                token: token
-            });
-        }
-    });
+    common.db.putItem(params, callback);
 }
 
 module.exports = router;

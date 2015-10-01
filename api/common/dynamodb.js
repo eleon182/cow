@@ -116,7 +116,6 @@ function putItem(params,callback) {
     //     Item: item
     // }
     db.putItem(params, function(err, data) {
-        debug('putitem: ', err, table, item);
         if (err) {
             return callback(err, null);
         } else {
