@@ -4,7 +4,7 @@ var basic = {
     url: '/api/chat.postMessage',
     // channel: '#automated-reporting',
     channel: '@eleon182',
-    username: 'Cow'
+    username: 'Cow-bot'
 };
 
 module.exports = {

@@ -1,0 +1,12 @@
+{
+    "d": {
+        "description": "Display user information",
+        "func": "displayUser",
+        "arg": 0
+    },
+    "m": {
+        "description": "Move to new sector",
+        "func": "moveSector",
+        "arg": 1
+    }
+}

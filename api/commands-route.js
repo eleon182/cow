@@ -1,18 +1,27 @@
 var express = require('express');
 var uuid = require('node-uuid');
-var common = require('./common');
 var debug = require('debug')('main');
 var router = express.Router();
 
+var commandParser = require('./commandParser');
+var common = require('./common');
+var slack = require('./slackApi');
 var table = 'cow-command-log';
 
 router.post('/', function(req, res, next) {
-    create(req.body, function(){
-        res.send('Cow - Command received: ' + req.body.text);
+    commandParser.hub(req.body, function(err, response){
+        if(err){
+            res.send('('+req.body.text+') ' + err.error);
+        }
+        else {
+            res.send('('+req.body.text+') ' + response);
+        }
+    });
+    addLog(req.body, function(){
     })
 });
 
-function create(data, callback) {
+function addLog(data, callback) {
     var token = uuid.v1();
     var params = {
         TableName: table,
@@ -20,7 +29,7 @@ function create(data, callback) {
             id: {
                 'S': token
             },
-            user_name: {
+            username: {
                 'S': data.user_name
             },
             text: {
