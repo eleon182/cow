@@ -4,11 +4,11 @@ var common = require('./common');
 var debug = require('debug')('main');
 var router = express.Router();
 
-var table = 'steve-test';
+var table = 'cow-command-log';
 
 router.post('/', function(req, res, next) {
     create(req.body, function(){
-        res.end();
+        res.send('Command received.');
     })
 });
 
