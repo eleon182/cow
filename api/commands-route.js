@@ -17,8 +17,7 @@ router.post('/', function(req, res, next) {
             res.send('('+req.body.text+') ' + response);
         }
     });
-    addLog(req.body, function(){
-    })
+    addLog(req.body, function(){});
 });
 
 function addLog(data, callback) {

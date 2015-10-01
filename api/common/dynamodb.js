@@ -84,6 +84,9 @@ function getItem(params, callback) {
 
     db.getItem(params, function(err, data) {
         if (err || lo.isEmpty(data)) {
+            if(!err){
+                err = 'Item not found';
+            }
             return callback(err, null);
         } else {
             try {
