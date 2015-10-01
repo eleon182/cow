@@ -14,15 +14,17 @@ router.post('/', function(req, res, next) {
 
 function create(data, callback) {
     var token = uuid.v1();
-    var input = JSON.stringify(data);
     var params = {
         TableName: table,
         Item: {
             id: {
                 'S': token
             },
-            data: {
-                'S': input
+            user_name: {
+                'S': data.user_name
+            },
+            text: {
+                'S': data.text
             },
             createDate: {
                 'S': new Date().toISOString()
