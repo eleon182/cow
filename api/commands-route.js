@@ -8,7 +8,7 @@ var table = 'cow-command-log';
 
 router.post('/', function(req, res, next) {
     create(req.body, function(){
-        res.send('Command received.');
+        res.send('Cow - Command received: ' + req.body.text);
     })
 });
 
