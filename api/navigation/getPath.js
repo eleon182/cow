@@ -8,7 +8,7 @@ module.exports = getPath;
 //set up
 var x = 0;
 while (nav[x]) {
-    route.addNode(x.toString(), buildPaths(nav[x]));
+    route.addVertex(x.toString(), buildPaths(nav[x]));
     x++;
 }
 
