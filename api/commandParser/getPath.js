@@ -17,6 +17,7 @@ function buildSlackResponse(input) {
     var response = 'Compute navigation path';
     response += '\n```';
     response += '\n' + input;
+    response += '\nHops: ' + (input.length - 1);
     response += '\nTranswarp fuel cost: ' + (input.length - 1) * 3;
     response += '\n```';
     return response;
