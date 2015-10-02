@@ -1,8 +1,9 @@
-var commandList = require('../json/commandList')
-var lo = require('lodash')
+var commandList = require('../json/commandList');
+var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    listCommands: require('./listCommands'),
     moveSector: require('./moveSector')
 };
 
@@ -32,7 +33,14 @@ function hub(input, callback) {
                 error: 'Invalid command',
                 code: 'invalidCommand'
             }, null);
-        } else {
+        }
+        else if(arg.length !== command.arg) {
+            return callback({
+                error: 'Invalid arguments. Usage: '+ command.usage,
+                code: 'invalidArguments'
+            }, null);
+        }
+        else {
             functionList[command.func](params, callback);
         }
     }

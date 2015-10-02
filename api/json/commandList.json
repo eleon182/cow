@@ -1,12 +1,20 @@
 {
     "d": {
         "description": "Display user information",
+        "usage": "d",
         "func": "displayUser",
         "arg": 0
     },
     "m": {
         "description": "Move to new sector",
+        "usage": "m [destination sector]",
         "func": "moveSector",
         "arg": 1
+    },
+    "?": {
+        "description": "List commands",
+        "usage": "?",
+        "func": "listCommands",
+        "arg": 0
     }
 }

@@ -17,7 +17,7 @@ function displayUser(arg, callback){
 }
 
 function buildSlackResponse(input){
-    var response = 'User Information'
+    var response = 'User Information';
     response += '\n```';
     response += '\nUser: ' + input.username;
     response += '\nSector: ' + input.sector;
