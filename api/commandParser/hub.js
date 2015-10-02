@@ -43,10 +43,25 @@ function hub(input, callback) {
                 code: 'invalidArguments'
             }, null);
         } else {
-            userProfile.getUser(params, function(err, response) {
-                params.profile = response;
-                return functionList[command.func](params, callback);
-            });
+            var parse = true;
+            if (command.parseInt) {
+                params.arg.forEach(function(val) {
+                    if (lo.isNaN(parseInt(val))) {
+                        parse = false;
+                    }
+                });
+            }
+            if (parse) {
+                userProfile.getUser(params, function(err, response) {
+                    params.profile = response;
+                    return functionList[command.func](params, callback);
+                });
+            } else {
+                return callback({
+                    error: 'Invalid argument type (numeric). Usage: ' + command.usage,
+                    code: 'invalidArguments'
+                }, null);
+            }
         }
     }
 }

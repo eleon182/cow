@@ -14,9 +14,14 @@ while (nav[x]) {
 
 function getPath(params) {
     if (params.start && params.end) {
-        return route.shortestPath(params.start.toString(), params.end.toString());
+        var path = route.shortestPath(params.start.toString(), params.end.toString());
+        if (path) {
+            return path;
+        } else {
+            return [params.start];
+        }
     } else {
-        return null;
+        return [];
     }
 }
 
