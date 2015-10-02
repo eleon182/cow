@@ -1,5 +1,6 @@
 var userProfile = require('../userProfile');
 var navigation = require('../navigation');
+var navigationPath = require('../json/navigation');
 
 module.exports = transwarp;
 
@@ -12,6 +13,16 @@ function transwarp(input, callback) {
         return callback({
             error: 'Not enough fuel',
             code: 'insufficientFuel'
+        });
+    } else if (params.start == params.end) {
+        return callback({
+            error: 'That is the current sector!',
+            code: 'currentSector'
+        });
+    } else if (parseInt(input.sector) >= navigationPath.length || parseInt(input.sector) < 1) {
+        return callback({
+            error: 'Valid sectors: 1-' + (navigationPath.length - 1),
+            code: 'invalidSector'
         });
     } else {
         input.sector = input.arg[0];
