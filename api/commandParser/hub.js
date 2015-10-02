@@ -3,6 +3,7 @@ var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    scanSector: require('./scanSector'),
     listCommands: require('./listCommands'),
     getPath: require('./getPath'),
     moveSector: require('./moveSector')

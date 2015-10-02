@@ -5,6 +5,12 @@
         "func": "displayUser",
         "arg": 0
     },
+    "s": {
+        "description": "Scan area",
+        "usage": "s",
+        "func": "scanSector",
+        "arg": 0
+    },
     "m": {
         "description": "Move to new sector",
         "usage": "m [destination adjacent sector]",
