@@ -4,6 +4,7 @@ var lo = require('lodash');
 var functionList = {
     displayUser: require('./displayUser'),
     listCommands: require('./listCommands'),
+    getPath: require('./getPath'),
     moveSector: require('./moveSector')
 };
 

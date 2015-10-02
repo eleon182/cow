@@ -7,7 +7,7 @@
     },
     "m": {
         "description": "Move to new sector",
-        "usage": "m [destination sector]",
+        "usage": "m [destination adjacent sector]",
         "func": "moveSector",
         "arg": 1
     },
@@ -16,5 +16,11 @@
         "usage": "?",
         "func": "listCommands",
         "arg": 0
+    },
+    "p": {
+        "description": "Path navigation",
+        "usage": "p [destination sector]",
+        "func": "getPath",
+        "arg": 1
     }
 }
