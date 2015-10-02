@@ -1,4 +1,5 @@
 var commandList = require('../json/commandList');
+var userProfile = require('../userProfile');
 var lo = require('lodash');
 
 var functionList = {
@@ -35,15 +36,21 @@ function hub(input, callback) {
                 error: 'Invalid command',
                 code: 'invalidCommand'
             }, null);
-        }
-        else if(arg.length !== command.arg) {
+        } else if (arg.length !== command.arg) {
             return callback({
-                error: 'Invalid arguments. Usage: '+ command.usage,
+                error: 'Invalid arguments. Usage: ' + command.usage,
                 code: 'invalidArguments'
             }, null);
-        }
-        else {
-            functionList[command.func](params, callback);
+        } else {
+            userProfile.getUser(params, function(err, data) {
+                if (err) {
+                    userProfile.addUser(params, function(err, data) {
+                        functionList[command.func](params, callback);
+                    });
+                } else {
+                    functionList[command.func](params, callback);
+                }
+            });
         }
     }
 }

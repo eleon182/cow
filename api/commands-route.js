@@ -10,7 +10,7 @@ var table = 'cow-command-log';
 
 router.post('/', function(req, res, next) {
     commandParser.hub(req.body, function(err, response){
-        if(err){
+        if(err && err.error){
             res.send('('+req.body.text+') ' + err.error);
         }
         else {
