@@ -44,8 +44,8 @@ function scanAdjacent(data, callback){
 function findUsers(sector, users){
     var response = [];
     users.forEach(function(val){
-        if(val.sector === sector){
-            response.push(val.username);
+        if(val.sector == sector){
+            response.push(val.username+ ' (Fighters: '+ val.fighters+ ' Shields: '+ val.shields+ ')');
         }
     });
     return response;
