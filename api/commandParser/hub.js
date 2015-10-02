@@ -4,6 +4,7 @@ var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    transwarp: require('./transwarp'),
     scanSector: require('./scanSector'),
     listCommands: require('./listCommands'),
     getPath: require('./getPath'),
@@ -42,14 +43,9 @@ function hub(input, callback) {
                 code: 'invalidArguments'
             }, null);
         } else {
-            userProfile.getUser(params, function(err, data) {
-                if (err) {
-                    userProfile.addUser(params, function(err, data) {
-                        functionList[command.func](params, callback);
-                    });
-                } else {
-                    functionList[command.func](params, callback);
-                }
+            userProfile.getUser(params, function(err, response) {
+                params.profile = response;
+                return functionList[command.func](params, callback);
             });
         }
     }

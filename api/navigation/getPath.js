@@ -13,7 +13,11 @@ while (nav[x]) {
 }
 
 function getPath(params) {
-    return route.shortestPath(params.start.toString(), params.end.toString());
+    if (params.start && params.end) {
+        return route.shortestPath(params.start.toString(), params.end.toString());
+    } else {
+        return null;
+    }
 }
 
 function buildPaths(data) {

@@ -84,17 +84,13 @@ function getItem(params, callback) {
 
     db.getItem(params, function(err, data) {
         if (err || lo.isEmpty(data)) {
-            if(!err){
+            if (!err) {
                 err = 'Item not found';
             }
             return callback(err, null);
         } else {
-            try {
-                dataHelper.removeKey(data.Item);
-                return callback(null, data.Item);
-            } catch (e) {
-                return callback(e, null);
-            }
+            dataHelper.removeKey(data.Item);
+            return callback(null, data.Item);
         }
     });
 }
@@ -113,7 +109,7 @@ function scan(params, callback) {
     });
 }
 
-function putItem(params,callback) {
+function putItem(params, callback) {
     // var params = {
     //     TableName: table,
     //     Item: item

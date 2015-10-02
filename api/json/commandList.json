@@ -5,6 +5,12 @@
         "func": "displayUser",
         "arg": 0
     },
+    "t": {
+        "description": "Transwarp (requires 3 fuel per hop)",
+        "usage": "t [destination sector]",
+        "func": "transwarp",
+        "arg": 1
+    },
     "s": {
         "description": "Scan area",
         "usage": "s",
@@ -12,7 +18,7 @@
         "arg": 0
     },
     "m": {
-        "description": "Move to new sector",
+        "description": "Move to adjacent sector (requires 1 fuel)",
         "usage": "m [destination adjacent sector]",
         "func": "moveSector",
         "arg": 1
