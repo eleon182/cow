@@ -5,13 +5,6 @@
         "func": "displayUser",
         "arg": 0
     },
-    "t": {
-        "description": "Transwarp (requires 3 fuel per hop)",
-        "parseInt": true,
-        "usage": "t [destination sector]",
-        "func": "transwarp",
-        "arg": 1
-    },
     "s": {
         "description": "Scan area",
         "usage": "s",
@@ -25,17 +18,24 @@
         "func": "moveSector",
         "arg": 1
     },
+    "t": {
+        "description": "Transwarp (requires 3 fuel per hop)",
+        "parseInt": true,
+        "usage": "t [destination sector]",
+        "func": "transwarp",
+        "arg": 1
+    },
+    "p": {
+        "description": "Calculate path navigation",
+        "usage": "p [destination sector]",
+        "parseInt": true,
+        "func": "getPath",
+        "arg": 1
+    },
     "?": {
         "description": "List commands",
         "usage": "?",
         "func": "listCommands",
         "arg": 0
-    },
-    "p": {
-        "description": "Path navigation",
-        "usage": "p [destination sector]",
-        "parseInt": true,
-        "func": "getPath",
-        "arg": 1
     }
 }
