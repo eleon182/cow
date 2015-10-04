@@ -1,0 +1,37 @@
+[
+    {
+        "type": 0,
+        "fuel": "s",
+        "code": "S00",
+        "display": "Sells fuel"
+    }, {
+        "type": 1,
+        "fuel": "b",
+        "code": "B00",
+        "display": "Buys fuel"
+    },
+    {
+        "type": 2,
+        "code": "0S0",
+        "iron": "s",
+        "display": "Sells iron"
+    },
+    {
+        "type": 3,
+        "code": "0B0",
+        "iron": "b",
+        "display": "Buys iron"
+    },
+    {
+        "type": 4,
+        "code": "00S",
+        "titanium": "s",
+        "display": "Sells titanium"
+    },
+    {
+        "type": 5,
+        "code": "00B",
+        "titanium": "b",
+        "display": "Buys titanium"
+    }
+]

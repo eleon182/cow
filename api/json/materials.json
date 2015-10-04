@@ -1,0 +1,13 @@
+{
+    "fuel": {
+        "unitPrice": 5
+    },
+    "iron": {
+        "unitPrice": 10
+    },
+    "titanium":{
+        "unitPrice": 50
+    }
+}
+
+

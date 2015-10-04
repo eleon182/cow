@@ -6,6 +6,7 @@ var functionList = {
     displayUser: require('./displayUser'),
     transwarp: require('./transwarp'),
     scanSector: require('./scanSector'),
+     portScan: require('./portScan'),
     listCommands: require('./listCommands'),
     getPath: require('./getPath'),
     moveSector: require('./moveSector')

@@ -13,6 +13,7 @@ var db = new AWS.DynamoDB();
 module.exports = {
     scan: scan,
     getItem: getItem,
+    batchGetItem: batchGetItem,
     putItem: putItem,
     deleteItem: deleteItem,
     query: query,
@@ -73,6 +74,35 @@ function deleteItem(params, callback) {
         } else {
             return callback(null, data);
         }
+    });
+}
+
+function batchGetItem(params, callback) {
+    //var params = {
+        //RequestItems: {
+            //'cow-ports': {
+                //Keys: [{
+                    //sector: {
+                        //"S": '4350'
+                    //}
+                //}]
+            //}
+        //}
+    //};
+
+    db.batchGetItem(params, function(err, data) {
+        for (var key in data.Responses) {
+            data.Responses[key].forEach(function(val) {
+                dataHelper.removeKey(val);
+            });
+        }
+        var response = {};
+
+        for (var key in data.Responses) {
+            response = data.Responses[key];
+        }
+
+        return callback(null, response);
     });
 }
 

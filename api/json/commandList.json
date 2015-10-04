@@ -6,9 +6,15 @@
         "arg": 0
     },
     "s": {
-        "description": "Scan area",
+        "description": "Enemy scan",
         "usage": "s",
         "func": "scanSector",
+        "arg": 0
+    },
+    "ps": {
+        "description": "Port scan",
+        "usage": "s",
+        "func": "portScan",
         "arg": 0
     },
     "m": {
