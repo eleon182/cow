@@ -11,12 +11,6 @@
         "func": "scanSector",
         "arg": 0
     },
-    "ps": {
-        "description": "Port scan",
-        "usage": "s",
-        "func": "portScan",
-        "arg": 0
-    },
     "m": {
         "description": "Move to adjacent sector (requires 1 fuel)",
         "usage": "m [destination adjacent sector]",
@@ -39,7 +33,7 @@
         "arg": 1
     },
     "g": {
-        "description": "Show game informatio",
+        "description": "Show game information",
         "usage": "g",
         "func": "getGameInfo",
         "arg": 0

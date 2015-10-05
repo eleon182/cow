@@ -16,9 +16,10 @@ function getUser(data, callback) {
         }
     };
     common.db.getItem(params, function(err, response) {
-        if (err) {
-            addUser(params, function(err, data) {
+        if (err || !response) {
+            addUser(data, function(err, data) {
                 common.db.getItem(params, function(err, response) {
+                    response.adjacent = navigation.getAdjacent(response.sector);
                     return callback(null, response);
                 });
             });
