@@ -13,7 +13,7 @@ function buildSlackResponse(input) {
     response += '\nFighters: ' + input.fighters;
     response += '\nShields: ' + input.shields;
     response += '\nCurrency: ' + input.currency;
-    response += '\nFuel: ' + input.fuel;
+    response += '\nFuel: ' + input.fuel + '/'+ input.maxFuel;
     response += '\nAvailable holds: ' + input.holds;
     response += '\nCreate date: ' + new Date(input.createDate).toDateString();
     response += '\nSector: ' + input.sector;

@@ -11,6 +11,12 @@
         "func": "scanSector",
         "arg": 0
     },
+    "b": {
+        "description": "Buy goods",
+        "usage": "b [amount]",
+        "func": "buy",
+        "arg": 1
+    },
     "m": {
         "description": "Move to adjacent sector (requires 1 fuel)",
         "usage": "m [destination adjacent sector]",
