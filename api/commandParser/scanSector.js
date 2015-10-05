@@ -40,8 +40,11 @@ function buildResponse(data, input) {
 function buildSectorDisplay(val, input) {
     var response = '';
     response += '\n' + val + ': ';
-    if (input[1][val]) {
-        response += '\n     ' + input[1][val].username + ' (Fighters: ' + input[1][val].fighters + ' Shields: ' + input[1][val].shields + ')';
+    if (input[1][val].length > 0) {
+        input[1][val].forEach(function(current){
+            response += '\n     ' + current.username + ' (Fighters: ' + current.fighters + ' Shields: ' + current.shields + ')';
+
+        });
     }
     if (input[0][val]) {
         response += '\n     Port type: ' + input[0][val].type + '(' + input[0][val].code + ') | ' + input[0][val].display + ' | Current Stock: '+ input[0][val].stock+ ' | Unit Price: $' + input[0][val].price.toFixed(2);
