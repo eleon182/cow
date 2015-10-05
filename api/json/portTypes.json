@@ -2,35 +2,41 @@
     {
         "type": 0,
         "fuel": "s",
+        "sell": "fuel",
         "code": "S00",
         "display": "Sells fuel"
     }, {
         "type": 1,
         "fuel": "b",
+        "buy" :"fuel",
         "code": "B00",
         "display": "Buys fuel"
     },
     {
         "type": 2,
         "code": "0S0",
+        "sell": "iron",
         "iron": "s",
         "display": "Sells iron"
     },
     {
         "type": 3,
         "code": "0B0",
+        "buy": "iron",
         "iron": "b",
         "display": "Buys iron"
     },
     {
         "type": 4,
         "code": "00S",
+        "sell": "titanium",
         "titanium": "s",
         "display": "Sells titanium"
     },
     {
         "type": 5,
         "code": "00B",
+        "buy": "titanium",
         "titanium": "b",
         "display": "Buys titanium"
     }

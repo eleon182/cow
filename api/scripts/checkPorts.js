@@ -1,13 +1,14 @@
 
 var ports = require('../json/ports');
+var ports2 = require('../json/ports2');
 var nav = require('../json/navigation');
 
-console.log(nav.length);
-var count = 0;
-for(var x = 1; x<=5000; x++){
-    if(ports[x] === undefined){
-        count++;
-        console.log(x);
+
+function run(){
+    for(var x = 1; x < ports.length; x++){
+        if(ports[x] && ports[x].code!== ports2[x].code){
+            console.log(x);
+        }
     }
 }
-console.log(count);
+run();
