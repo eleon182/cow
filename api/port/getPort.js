@@ -19,10 +19,9 @@ function getPort(data, callback) {
     };
     common.db.getItem(params, function(err, results) {
         var response = ports[data.sector];
-        console.log(results);
         if (results) {
             response.currentStock = results.currentStock;
-            //response.price = averageStock / parseInt(response.currentStock) * materials[key].unitPrice;
+            response.price = averageStock / parseInt(results.currentStock) * materials[response.sell || response.buy].unitPrice;
         }
 
         callback(err, response);
