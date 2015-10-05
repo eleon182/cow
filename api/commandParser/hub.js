@@ -4,6 +4,7 @@ var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    getGameInfo: require('./getGameInfo'),
     transwarp: require('./transwarp'),
     scanSector: require('./scanSector'),
      portScan: require('./portScan'),

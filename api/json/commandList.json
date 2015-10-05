@@ -38,6 +38,12 @@
         "func": "getPath",
         "arg": 1
     },
+    "g": {
+        "description": "Show game informatio",
+        "usage": "g",
+        "func": "getGameInfo",
+        "arg": 0
+    },
     "?": {
         "description": "List commands",
         "usage": "?",
