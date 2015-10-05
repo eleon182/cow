@@ -28,6 +28,9 @@ function addUser(data, callback) {
             fuel: {
                 S: '100'
             },
+            maxFuel: {
+                S: '100'
+            },
             sector: {
                 S: sector.toString()
             },

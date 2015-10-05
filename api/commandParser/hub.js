@@ -7,7 +7,7 @@ var functionList = {
     getGameInfo: require('./getGameInfo'),
     transwarp: require('./transwarp'),
     scanSector: require('./scanSector'),
-     portScan: require('./portScan'),
+    portScan: require('./portScan'),
     listCommands: require('./listCommands'),
     getPath: require('./getPath'),
     moveSector: require('./moveSector')
@@ -16,6 +16,12 @@ var functionList = {
 module.exports = hub;
 
 function hub(input, callback) {
+    if (!input.text) {
+        return callback({
+            error: 'Command not found',
+            code: 'emptyCommand'
+        }, null);
+    }
     var text = input.text.split(' ');
     var username = input.user_name;
     var command, arg, params;
