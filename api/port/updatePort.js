@@ -7,13 +7,14 @@ var table = 'cow-ports';
 function updatePort(data, callback) {
     var key = {
         sector: {
-            'S': data.sector
+            'S': data.sector.toString()
         },
     };
+    console.log(data);
     var expression = "set currentStock= :val1";
     var values = {
         ':val1': {
-            'S': data.currentStock.toString()
+            'N': data.currentStock.toString()
         }
     };
 

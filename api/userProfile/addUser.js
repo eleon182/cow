@@ -14,22 +14,22 @@ function addUser(data, callback) {
                 S: data.username
             },
             currency: {
-                S: '1000'
+                N: '1000'
             },
             shields: {
-                S: '100'
+                N: '100'
             },
             fighters: {
-                S: '200'
+                N: '200'
             },
             holds: {
-                S: '100'
+                N: '100'
             },
             fuel: {
-                S: '100'
+                N: '100'
             },
             maxFuel: {
-                S: '100'
+                N: '100'
             },
             sector: {
                 S: sector.toString()

@@ -14,16 +14,16 @@ function updateGoods(data, callback) {
     var expression = 'set '+ data.sell + '= :val1, currency = :val2';
     var values = {
         ':val1': {
-            'S': data.amount.toString()
+            'N': data.amount.toString()
         },
         ':val2': {
-            'S': data.currency.toString()
+            'N': data.currency.toString()
         }
     };
     if(data.holds !== null && data.holds !== undefined && !lo.isNaN(data.holds)){
         expression += ', holds = :val3';
         values[':val3'] = {
-            'S': data.holds.toString()
+            'N': data.holds.toString()
         };
     }
 

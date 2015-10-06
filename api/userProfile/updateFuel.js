@@ -13,7 +13,7 @@ function updateFuel(data, callback) {
     var expression = "set fuel= :val1";
     var values = {
         ':val1': {
-            'S': data.fuel.toString()
+            'N': data.fuel.toString()
         }
     };
 

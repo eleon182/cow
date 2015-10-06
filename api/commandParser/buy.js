@@ -103,7 +103,8 @@ function buy(user, callback) {
 
                         },
                         function(internalCallback) {
-                            ports.updatePort(portParam, function(portVal) {
+                            ports.updatePort(portParam, function(err,portVal) {
+                                console.log(err,portVal);
                                 internalCallback(null, portVal);
                             });
                         }
