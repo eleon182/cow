@@ -22,13 +22,17 @@ function getUser(data, callback) {
             } else {
                 addUser(data, function(err, data) {
                     common.db.getItem(params, function(err, response) {
-                        response.adjacent = navigation.getAdjacent(response.sector);
-                        return callback(null, response);
+                        if (response && response.sector) {
+                            response.adjacent = navigation.getAdjacent(response.sector);
+                        }
+                        return callback(err, response);
                     });
                 });
             }
         } else {
-            response.adjacent = navigation.getAdjacent(response.sector);
+            if (response && response.sector) {
+                response.adjacent = navigation.getAdjacent(response.sector);
+            }
             return callback(null, response);
         }
     });

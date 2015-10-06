@@ -2,6 +2,7 @@ var async = require('async');
 var ports = require('../port');
 var common = require('../common');
 var gameData = require('../json/game');
+var shipTypes = require('../json/shipTypes');
 var userProfile = require('../userProfile');
 
 module.exports = buy;
@@ -12,6 +13,11 @@ function buy(user, callback) {
         return callback({
             error: 'Must be at StarPort!',
             code: 'invalidSector'
+        });
+    } else if (amount > (shipTypes[user.profile.shipCode].maxHolds - user.profile.holds)) {
+        return callback({
+            error: 'Above max holds: ' + shipTypes[user.profile.shipCode].maxHolds,
+            code: 'aboveMaxHolds'
         });
     } else {
         var checkValid = checkParams(amount, user);
