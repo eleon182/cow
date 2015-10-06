@@ -1,11 +1,13 @@
 var common = require('../common');
 var navigation = require('../json/navigation');
+var shipTypes = require('../json/shipTypes');
 
 module.exports = addUser;
 
 var table = 'cow-user-profile';
 
 function addUser(data, callback) {
+    var ship = shipTypes.CVC;
     var sector = data.sector || Math.floor(Math.random()*navigation.length-1)+1;
     var params = {
         TableName: table,
@@ -16,20 +18,23 @@ function addUser(data, callback) {
             currency: {
                 N: '1000'
             },
+            shipCode: {
+                S: ship.code.toString()
+            },
             shields: {
-                N: '100'
+                N: ship.startShields.toString()
             },
             fighters: {
-                N: '200'
+                N: ship.startFighters.toString()
             },
             holds: {
-                N: '100'
+                N: ship.startHolds.toString()
             },
             fuel: {
-                N: '100'
+                N: ship.maxFuel.toString()
             },
             maxFuel: {
-                N: '100'
+                N: ship.maxFuel.toString()
             },
             sector: {
                 S: sector.toString()
@@ -41,3 +46,4 @@ function addUser(data, callback) {
     };
     common.db.putItem(params, callback);
 }
+

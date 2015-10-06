@@ -15,7 +15,7 @@ function buildResponse(input) {
         return new Date(n.createDate);
     });
     lo(input).reverse().value();
-    input = input.slice(0, 10);
+    input = input.slice(0, 20);
     var response = 'Battle Logs';
     response += '\n```';
     input.forEach(function(val){
