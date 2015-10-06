@@ -1,5 +1,7 @@
 var async = require('async');
 var common = require('../common');
+var navigation = require('../json/navigation');
+var battleLog = require('../battleLog');
 var userProfile = require('../userProfile');
 
 module.exports = attack;
@@ -14,11 +16,6 @@ function attack(data, callback) {
             return callback({
                 error: 'Username not found.',
                 code: 'userNotFound'
-            });
-        } else if (response.fighters === 0) {
-            return callback({
-                error: 'Cannot attack unarmed ship!',
-                code: 'unarmedShip'
             });
         } else if (response.sector !== data.profile.sector) {
             return callback({
@@ -79,8 +76,11 @@ function performAttack(user, defender, callback) {
         compiledResponse.attackShieldLost = defenseDmg;
         compiledResponse.attackFtrLost = 0;
     }
+    var rand;
 
     if (defender.fighters <= 0) {
+        rand = Math.floor(Math.random() * (navigation.length - 2)) + 1;
+        defender.sector = rand;
         compiledResponse.defenderDead = true;
         defender.fighters = 0;
 
@@ -91,6 +91,8 @@ function performAttack(user, defender, callback) {
         defender.currency -= loss;
     }
     if (user.profile.fighters <= 0) {
+        rand = Math.floor(Math.random() * (navigation.length - 2)) + 1;
+        user.profile.sector = rand;
         compiledResponse.attackDead = true;
         user.profile.fighters = 0;
 
@@ -106,6 +108,7 @@ function performAttack(user, defender, callback) {
     compiledResponse.defenseFtrLeft = defender.fighters;
     compiledResponse.defenseShieldLeft = defender.shields;
 
+    writeLog(compiledResponse);
     async.parallel([
 
             function(internalCallback) {
@@ -126,12 +129,31 @@ function performAttack(user, defender, callback) {
 
 }
 
+function writeLog(results) {
+    var attackResults = results.attackUsername + ' attacked ' + results.defenseUsername + ' for ' + results.attackDmg + ' damage and lost ' + results.attackFtrLost + ' fighters and ' + results.attackShieldLost + ' shields. ';
+    if (results.attackDead) {
+        attackResults += ' Attacker was killed and lost $' + results.attackCurrencyLost + '.';
+    }
+    var defenseResults = results.defenseUsername + ' defeneded against ' + results.attackUsername + ' for ' + results.defenseDmg + ' damage and lost ' + results.defenseFtrLost + ' fighters and ' + results.defenseShieldLost + ' shields. ';
+    if (results.defenderDead) {
+        defenseResults += ' Defender was killed and lost $' + results.defenderCurrencyLost + '.';
+    }
+    battleLog.log({
+        username: results.attackUsername,
+        text: attackResults
+    });
+    battleLog.log({
+        username: results.defenseUsername,
+        text: defenseResults
+    });
+
+}
+
 function randomizeAttack(fighters) {
     return Math.floor(Math.random() * fighters);
 }
 
 function buildResponse(data) {
-    console.log(data);
     var response = 'Battle results';
     response += '\n```';
     response += '\nUser: ' + data.attackUsername;

@@ -80,6 +80,12 @@
         "func": "getGameInfo",
         "arg": 0
     },
+    "l": {
+        "description": "Show battle logs",
+        "usage": "l",
+        "func": "getBattleLog",
+        "arg": 0
+    },
     "?": {
         "description": "List commands",
         "usage": "?",

@@ -11,7 +11,7 @@ function updateShields(data, callback) {
             'S': data.username
         },
     };
-    var expression = 'set shields = :val1, fighters= :val2, currency = :val3';
+    var expression = 'set shields = :val1, fighters= :val2, currency = :val3, sector = :val4';
     var values = {
         ':val1': {
             'N': data.shields.toString()
@@ -21,6 +21,9 @@ function updateShields(data, callback) {
         },
         ':val3': {
             'N': data.currency.toString()
+        },
+        ':val4': {
+            'S': data.sector.toString()
         }
     };
 

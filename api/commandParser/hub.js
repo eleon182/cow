@@ -9,6 +9,7 @@ var functionList = {
     buyFighters: require('./buyFighters'),
     buyShields: require('./buyShields'),
     buyHolds: require('./buyHolds'),
+    getBattleLog: require('./getBattleLog'),
     sell: require('./sell'),
     getGameInfo: require('./getGameInfo'),
     transwarp: require('./transwarp'),
