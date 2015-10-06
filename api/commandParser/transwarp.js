@@ -1,5 +1,6 @@
 var userProfile = require('../userProfile');
 var navigation = require('../navigation');
+var scanSector = require('./scanSector');
 var navigationPath = require('../json/navigation');
 
 module.exports = transwarp;
@@ -30,7 +31,10 @@ function transwarp(input, callback) {
             input.fuel = input.profile.fuel - 3 * (navigation.getPath(params).length - 1);
             userProfile.updateFuel(input, function(err, inner) {
                 userProfile.getUser(input, function(err, inner2) {
-                    callback(null, buildSlackResponse(inner2));
+                    input.profile.sector = params.end;
+                    scanSector(input, function(err, data){
+                        callback(null, buildSlackResponse(inner2)+data);
+                    });
                 });
             });
         });
@@ -43,6 +47,6 @@ function buildSlackResponse(input) {
     response += '\nUser: ' + input.username;
     response += '\nSector: ' + input.sector;
     response += '\nAdjacent sectors: ' + input.adjacent;
-    response += '\n```';
+    response += '\n```\n';
     return response;
 }

@@ -35,6 +35,7 @@ function buildResponse(data, input) {
     });
 
     response += buildSectorDisplay(data.profile.sector, input);
+    response += '\n\n     Fuel remaining: ' + data.profile.fuel;
     response += '\n```';
     return response;
 }
