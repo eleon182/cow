@@ -22,6 +22,5 @@ function buildResponse(input) {
         response += '\n'+ new Date(val.createDate).toISOString() + ' | ' + val.text;
     });
     response += '\n```';
-    console.log(response);
     return response;
 }

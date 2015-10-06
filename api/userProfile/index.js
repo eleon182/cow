@@ -9,5 +9,6 @@ module.exports = {
     updateGoods: require('./updateGoods'),
     updateSector: require('./updateSector'),
     scanSector: require('./scanSector'),
+    scan: require('./scan'),
     addUser: require('./addUser')
 };
