@@ -5,6 +5,7 @@ var lo = require('lodash');
 var functionList = {
     displayUser: require('./displayUser'),
     buy: require('./buy'),
+    sell: require('./sell'),
     getGameInfo: require('./getGameInfo'),
     transwarp: require('./transwarp'),
     scanSector: require('./scanSector'),

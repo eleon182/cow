@@ -5,17 +5,24 @@
         "func": "displayUser",
         "arg": 0
     },
-    "s": {
-        "description": "Enemy scan",
-        "usage": "s",
+    "f": {
+        "description": "Full scan",
+        "usage": "f",
         "func": "scanSector",
         "arg": 0
     },
     "b": {
-        "description": "Buy goods",
+        "description": "Buy goods (Enter 0 amount for smart buy)",
         "usage": "b [amount]",
         "parseInt": true,
         "func": "buy",
+        "arg": 1
+    },
+    "s": {
+        "description": "Sell goods (Enter 0 amount for smart buy)",
+        "usage": "s [amount]",
+        "parseInt": true,
+        "func": "sell",
         "arg": 1
     },
     "m": {

@@ -3,31 +3,32 @@ var ports = require('../port');
 var common = require('../common');
 var userProfile = require('../userProfile');
 
-module.exports = buy;
+module.exports = sell;
 
-function buy(user, callback) {
+function sell(user, callback) {
     var amount = parseInt(user.arg[0]);
     ports.getPort(user.profile, function(err, portData) {
-        if (!portData || !portData.sell) {
+        if (!portData || !portData.buy) {
             return callback({
-                error: 'No valid sell port in this sector',
+                error: 'No valid buy port in this sector',
                 code: 'invalidPort'
             });
         } else {
             if (amount === 0) {
-                amount = smartBuy(user, portData);
+                amount = smartSell(user, portData);
                 if (amount.error) {
                     return callback(amount);
                 }
             }
             amount = parseInt(amount);
+
             var checkValid = checkParams(amount, user, portData);
             if (checkValid.error) {
                 return callback(checkValid);
             }
             var portParam = {
                 sector: user.profile.sector,
-                currentStock: parseInt(portData.currentStock) - amount
+                currentStock: parseInt(portData.currentStock) + amount
             };
             var newAmount = 0;
             var newHolds = null;
@@ -73,69 +74,29 @@ function buy(user, callback) {
 }
 
 function checkParams(amount, user, portData) {
-    if (portData.currentStock == '0' || amount > portData.currentStock) {
+    if (!user.profile[portData.buy] || user.profile[portData.buy] < amount) {
         return {
-            error: 'Insufficient stock. Available stock: ' + portData.currentStock,
-            code: 'insufficientStock'
+            error: 'Not enough ' + portData.buy + '. Requested: ' + amount + ' | Current: ' + user.profile[portData.buy],
+            code: 'insufficientSupplies'
         };
-    } else if (amount * portData.price > user.profile.currency) {
-        return {
-            error: 'Not enough money. Required: $' + (amount * portData.price).toFixed(2) + ' | Current: $' + parseInt(user.profile.currency).toFixed(2),
-            code: 'insufficientFunds'
-        };
-    } else if (portData.sell === 'fuel' && amount > (parseInt(user.profile.maxFuel) - parseInt(user.profile.fuel))) {
-        return {
-            error: 'Insufficient fuel capacity. Available fuel capacity: ' + (user.profile.maxFuel - user.profile.fuel),
-            code: 'insufficientStock'
-        };
-    } else if (portData.sell !== 'fuel' && amount > user.profile.holds) {
-        return {
-            error: 'Insufficient available holds. Available holds: ' + user.profile.holds,
-            code: 'insufficientHolds'
-        };
-    }
-    else {
+    } else {
         return {
             error: false
         };
     }
-
-    return { error: false };
 }
 
-function smartBuy(user, portData) {
-    var amount = parseInt(portData.sell === 'fuel' ? (parseInt(user.profile.maxFuel) - parseInt(user.profile.fuel)) : user.profile.holds);
+function smartSell(user, portData) {
+    var amount = user.profile[portData.buy];
 
-    if (amount === 0) {
-        if (portData.sell === 'fuel') {
-            return {
-                error: 'Insufficient fuel capacity. Available fuel capacity: ' + (user.profile.maxFuel - user.profile.fuel),
-                code: 'insufficientStock'
-            };
-        } else {
-            return {
-                error: 'Insufficient available holds. Available holds: ' + user.profile.holds,
-                code: 'insufficientStock'
-            };
-        }
+    if (!amount) {
+        return {
+            error: 'Nothing to sell',
+            code: 'insufficientInventory'
+        };
     }
-    if (amount > portData.currentStock) {
-        amount = parseInt(portData.currentStock);
-        if (amount === 0) {
-            return {
-                error: 'Insufficient stock. Available stock: ' + portData.currentStock,
-                code: 'insufficientStock'
-            };
-        }
-    }
-    if (amount * portData.price > user.profile.currency) {
-        amount = Math.floor(user.profile.currency / portData.price);
-        if (amount === 0) {
-            return {
-                error: 'Not enough money. Required: $' + (amount * portData.price).toFixed(2) + ' | Current: $' + parseInt(user.profile.currency).toFixed(2),
-                code: 'insufficientFunds'
-            };
-        }
+    if (portData.buy === 'fuel') {
+        amount--;
     }
     return amount;
 }
