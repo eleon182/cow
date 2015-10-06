@@ -1,4 +1,5 @@
 var userProfile = require('../userProfile');
+var shipTypes = require('../json/shipTypes');
 var common = require('../common');
 
 module.exports = displayUser;
@@ -11,6 +12,7 @@ function buildSlackResponse(input) {
     var response = 'User Information';
     response += '\n```';
     response += '\nUser: ' + input.username;
+    response += '\nShip: ' + shipTypes[input.shipCode].name + ' class ' + shipTypes[input.shipCode].class;
     response += '\n-----------------------';
     response += '\nFighters: ' + input.fighters;
     response += '\nShields: ' + input.shields;

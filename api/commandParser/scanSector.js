@@ -1,6 +1,7 @@
 var async = require('async');
 
 var userProfile = require('../userProfile');
+var shipTypes = require('../json/shipTypes');
 var port = require('../port');
 var gameData = require('../json/game');
 
@@ -43,7 +44,7 @@ function buildSectorDisplay(val, input) {
     response += '\n' + val + ': ';
     if (input[1][val].length > 0) {
         input[1][val].forEach(function(current){
-            response += '\n     ' + current.username + ' (Fighters: ' + current.fighters + ' | Shields: ' + current.shields + ')';
+            response += '\n     ' + current.username + ' (Ship: ' + shipTypes[current.shipCode].name + ' class ' + shipTypes[current.shipCode].class+ ' | Fighters: ' + current.fighters + ' | Shields: ' + current.shields + ')';
 
         });
     }

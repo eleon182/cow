@@ -86,6 +86,12 @@
         "func": "getBattleLog",
         "arg": 0
     },
+    "st": {
+        "description": "Show ship database",
+        "usage": "st",
+        "func": "displayShipTypes",
+        "arg": 0
+    },
     "?": {
         "description": "List commands",
         "usage": "?",

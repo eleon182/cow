@@ -4,6 +4,7 @@ var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    displayShipTypes: require('./displayShipTypes'),
     attack: require('./attack'),
     buy: require('./buy'),
     buyFighters: require('./buyFighters'),
