@@ -145,7 +145,6 @@ function buildResponse(amount, portData, userParam) {
     var response = 'Purchase successful!';
     response += '\n```';
     response += '\nPurchased ' + amount + ' ' + portData.sell + ' for $' + totalPrice;
-    response += '\nYou now have: $' + common.moneyFormat(userParam.currency);
     response += '\n```';
     return response;
 }

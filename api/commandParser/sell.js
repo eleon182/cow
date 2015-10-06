@@ -30,27 +30,16 @@ function sell(user, callback) {
                 sector: user.profile.sector,
                 currentStock: parseInt(portData.currentStock) + amount
             };
-            var newAmount = 0;
-            var newHolds = null;
-            if (portData.sell === 'fuel') {
-                newAmount = parseInt(user.profile.fuel) + amount;
-            } else {
-                if (user.profile[portData.sell]) {
-                    newAmount = parseInt(user.profile[portData.sell]) + amount;
-                } else {
-                    newAmount = amount;
-                }
-                newHolds = parseInt(user.profile.holds) - amount;
-            }
             var userParam = {
                 username: user.username,
-                sell: portData.sell,
-                amount: newAmount,
-                currency: parseInt(user.profile.currency) - (amount * portData.price),
+                buy: portData.buy,
+                amount: parseInt(user.profile[portData.buy]) - amount,
+                currency: parseInt(user.profile.currency) + (amount * portData.price),
             };
-            if (newHolds !== null) {
-                userParam.holds = newHolds;
+            if (portData.buy !== 'fuel') {
+                userParam.holds = parseInt(user.profile.holds) + amount;
             }
+
             async.parallel([
 
                     function(internalCallback) {
@@ -103,10 +92,9 @@ function smartSell(user, portData) {
 
 function buildResponse(amount, portData, userParam) {
     var totalPrice = common.moneyFormat(parseInt(amount * portData.price));
-    var response = 'Purchase successful!';
+    var response = 'Sell successful!';
     response += '\n```';
-    response += '\nPurchased ' + amount + ' ' + portData.sell + ' for $' + totalPrice;
-    response += '\nYou now have: $' + common.moneyFormat(userParam.currency);
+    response += '\nSold ' + amount + ' ' + portData.buy + ' for $' + totalPrice;
     response += '\n```';
     return response;
 }
