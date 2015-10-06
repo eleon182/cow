@@ -4,7 +4,11 @@ var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    attack: require('./attack'),
     buy: require('./buy'),
+    buyFighters: require('./buyFighters'),
+    buyShields: require('./buyShields'),
+    buyHolds: require('./buyHolds'),
     sell: require('./sell'),
     getGameInfo: require('./getGameInfo'),
     transwarp: require('./transwarp'),
@@ -61,6 +65,9 @@ function hub(input, callback) {
                     }
                     else {
                         val = parseInt(val);
+                        if(val < 0){
+                            parse = false;
+                        }
                     }
                 });
             }

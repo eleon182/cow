@@ -2,6 +2,7 @@ var async = require('async');
 
 var userProfile = require('../userProfile');
 var port = require('../port');
+var gameData = require('../json/game');
 
 module.exports = scanSector;
 
@@ -48,6 +49,9 @@ function buildSectorDisplay(val, input) {
     }
     if (input[0][val]) {
         response += '\n     Port type: ' + input[0][val].type + '(' + input[0][val].code + ') | ' + input[0][val].display + ' | Current Stock: '+ input[0][val].stock+ ' | Unit Price: $' + input[0][val].price.toFixed(2);
+    }
+    if(gameData.starPort == val){
+        response += '\n     Port type: StarPort | Fighter price: $' + gameData.fighterPrice + ' | Shield price: $' + gameData.shieldPrice + ' | Cargo hold price: $' + gameData.holdPrice;
     }
     return response;
 }

@@ -17,12 +17,16 @@ function getUser(data, callback) {
     };
     common.db.getItem(params, function(err, response) {
         if (err || !response) {
-            addUser(data, function(err, data) {
-                common.db.getItem(params, function(err, response) {
-                    response.adjacent = navigation.getAdjacent(response.sector);
-                    return callback(null, response);
+            if (data.noCreate) {
+                return callback(err, response);
+            } else {
+                addUser(data, function(err, data) {
+                    common.db.getItem(params, function(err, response) {
+                        response.adjacent = navigation.getAdjacent(response.sector);
+                        return callback(null, response);
+                    });
                 });
-            });
+            }
         } else {
             response.adjacent = navigation.getAdjacent(response.sector);
             return callback(null, response);

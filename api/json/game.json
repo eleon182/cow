@@ -1,1 +1,7 @@
-
+{
+    "starPort" : 5000,
+    "earth": 1,
+    "fighterPrice": 50,
+    "holdPrice": 60,
+    "shieldPrice": 30
+}

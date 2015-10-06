@@ -1,5 +1,6 @@
 var userProfile = require('../userProfile');
 var materials = require('../json/materials');
+var gameData = require('../json/game');
 
 module.exports = displayUser;
 
@@ -15,6 +16,7 @@ function buildSlackResponse(input) {
     var response = 'Game Statistics';
     response += '\n```';
     response += '\nTotal sectors: ' + input.sectorStats.sectors;
+    response += '\nStarPort sector: ' + gameData.starPort;
     response += '\nMost hops: ' + input.sectorStats.maxHops;
     response += '\n=============================';
     response += '\nTotal ports: ' + input.portStats.count;
