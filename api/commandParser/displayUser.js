@@ -12,8 +12,14 @@ function buildSlackResponse(input) {
     response += '\nUser: ' + input.username;
     response += '\nFighters: ' + input.fighters;
     response += '\nShields: ' + input.shields;
-    response += '\nCurrency: ' + input.currency;
+    response += '\nCurrency: $' + parseInt(input.currency).toFixed(2);
     response += '\nFuel: ' + input.fuel + '/'+ input.maxFuel;
+    if(input.iron){
+        response += '\nIron: ' + input.iron;
+    }
+    if(input.titanium){
+        response += '\nTitanium: ' + input.titanium;
+    }
     response += '\nAvailable holds: ' + input.holds;
     response += '\nCreate date: ' + new Date(input.createDate).toDateString();
     response += '\nSector: ' + input.sector;

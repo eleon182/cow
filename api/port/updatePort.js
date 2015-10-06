@@ -6,7 +6,7 @@ var table = 'cow-ports';
 
 function updatePort(data, callback) {
     var key = {
-        username: {
+        sector: {
             'S': data.sector
         },
     };
