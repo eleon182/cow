@@ -33,7 +33,7 @@
         "code": "PRL",
         "class": "1",
         "name": "Prelude",
-        "description": "Attack ship",
+        "description": "Basic attack ship",
         "price": 13000,
         "transwarpCost": 3,
         "startFighters": 300,

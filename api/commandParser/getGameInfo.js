@@ -12,12 +12,16 @@ function displayUser(data, callback) {
 }
 
 function buildSlackResponse(input) {
-
     var response = 'Game Statistics';
     response += '\n```';
     response += '\nTotal sectors: ' + input.sectorStats.sectors;
     response += '\nStarPort sector: ' + gameData.starPort;
     response += '\nMost hops: ' + input.sectorStats.maxHops;
+    response += '\n=============================';
+    response += '\nTotal players: ' + input.gameInfo.players;
+    response += '\nTotal fighters: ' + input.gameInfo.fighters;
+    response += '\nTotal shields: ' + input.gameInfo.shields;
+    response += '\nTotal currency: ' + input.gameInfo.currency;
     response += '\n=============================';
     response += '\nTotal ports: ' + input.portStats.count;
     response += '\n----------------------------';
