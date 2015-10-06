@@ -20,7 +20,7 @@ function updateGoods(data, callback) {
             'S': data.currency.toString()
         }
     };
-    if(!lo.isNaN(data.holds)){
+    if(data.holds !== null && data.holds !== undefined && !lo.isNaN(data.holds)){
         expression += ', holds = :val3';
         values[':val3'] = {
             'S': data.holds.toString()

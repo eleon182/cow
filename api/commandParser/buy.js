@@ -7,7 +7,6 @@ module.exports = buy;
 function buy(user, callback) {
     var amount = parseInt(user.arg[0]);
     ports.getPort(user.profile, function(err, portData) {
-        //console.log(user, portData);
         if (!portData || !portData.sell) {
             return callback({
                 error: 'No valid sell port in this sector',
@@ -15,30 +14,37 @@ function buy(user, callback) {
             });
         } else {
             if (amount === 0) {
-                amount = parseInt(portData.sell === 'fuel' ? (user.profile.maxFuel - user.profile.fuel) : user.profile.holds);
+                amount = parseInt(portData.sell === 'fuel' ? (parseInt(user.profile.maxFuel) - parseInt(user.profile.fuel)) : user.profile.holds);
                 if (amount === 0) {
-                    return callback({
-                        error: 'Insufficient holds',
-                        code: 'insufficientHolds'
-                    });
+                    if (portData.sell === 'fuel') {
+                        return callback({
+                            error: 'Insufficient fuel capacity. Available fuel capacity: ' + (user.profile.maxFuel - user.profile.fuel),
+                            code: 'insufficientStock'
+                        });
+                    } else {
+                        return callback({
+                            error: 'Insufficient available holds. Available holds: ' + user.profile.holds,
+                            code: 'insufficientStock'
+                        });
+                    }
                 }
                 if (amount * portData.price > user.profile.currency) {
                     amount = Math.floor(user.profile.currency / portData.price);
-                }
-                if (amount === 0) {
-                    return callback({
-                        error: 'Insufficient funds',
-                        code: 'insufficientFunds'
-                    });
+                    if (amount === 0) {
+                        return callback({
+                            error: 'Not enough money. Required: $' + (amount * portData.price).toFixed(2) + ' | Current: $' + parseInt(user.profile.currency).toFixed(2),
+                            code: 'insufficientFunds'
+                        });
+                    }
                 }
                 if (amount > portData.currentStock) {
                     amount = portData.currentStock;
-                }
-                if (amount === 0) {
-                    return callback({
-                        error: 'No stock left',
-                        code: 'insufficientStock'
-                    });
+                    if (amount === 0) {
+                        return callback({
+                            error: 'Insufficient stock. Available stock: ' + portData.currentStock,
+                            code: 'insufficientStock'
+                        });
+                    }
                 }
             }
             if (amount * portData.price > user.profile.currency) {
@@ -59,7 +65,7 @@ function buy(user, callback) {
             } else if (portData.sell !== 'fuel' && amount > user.profile.holds) {
                 return callback({
                     error: 'Insufficient available holds. Available holds: ' + user.profile.holds,
-                    code: 'insufficientStock'
+                    code: 'insufficientHolds'
                 });
             } else {
                 var portParam = {
@@ -69,7 +75,7 @@ function buy(user, callback) {
                 var newAmount = 0;
                 var newHolds = null;
                 if (portData.sell === 'fuel') {
-                    newAmount = user.profile.fuel + amount;
+                    newAmount = parseInt(user.profile.fuel) + amount;
                 } else {
                     if (user.profile[portData.sell]) {
                         newAmount = parseInt(user.profile[portData.sell]) + amount;
@@ -78,7 +84,6 @@ function buy(user, callback) {
                     }
                     newHolds = parseInt(user.profile.holds) - amount;
                 }
-                    console.log(portData);
                 var userParam = {
                     username: user.username,
                     sell: portData.sell,
@@ -103,7 +108,7 @@ function buy(user, callback) {
                         }
                     ],
                     function(err, response) {
-                        callback(err, buildResponse(user, portData, userParam));
+                        callback(err, buildResponse(amount, portData, userParam));
                     });
             }
         }
@@ -111,11 +116,11 @@ function buy(user, callback) {
 
 }
 
-function buildResponse(user, portData, userParam) {
-    var totalPrice = (parseInt(user.arg[0]) * portData.price).toFixed(2);
+function buildResponse(amount, portData, userParam) {
+    var totalPrice = (parseInt(amount * portData.price)).toFixed(2);
     var response = 'Purchase successful!';
     response += '\n```';
-    response += '\nPurchased ' + user.arg[0] + ' ' + portData.sell + ' for $' + totalPrice;
+    response += '\nPurchased ' + amount + ' ' + portData.sell + ' for $' + totalPrice;
     response += '\nYou now have: $' + userParam.currency.toFixed(2);
     response += '\n```';
     return response;
