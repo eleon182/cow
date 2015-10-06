@@ -58,6 +58,9 @@ function hub(input, callback) {
                     if (isNaN(val)) {
                         parse = false;
                     }
+                    else {
+                        val = parseInt(val);
+                    }
                 });
             }
             if (parse) {
