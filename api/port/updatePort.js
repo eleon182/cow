@@ -10,7 +10,6 @@ function updatePort(data, callback) {
             'S': data.sector.toString()
         },
     };
-    console.log(data);
     var expression = "set currentStock= :val1";
     var values = {
         ':val1': {

@@ -7,7 +7,7 @@ function removeKey(data) {
         data.forEach(function(outer) {
             for (var key in outer) {
                 for (var innerKey in outer[key]) {
-                    if (!parseInt(outer[key][innerKey])) {
+                    if (isNaN(outer[key][innerKey])) {
                         outer[key] = outer[key][innerKey];
                     } else {
                         outer[key] = parseInt(outer[key][innerKey]);
@@ -21,7 +21,7 @@ function removeKey(data) {
 function removeIndividualKey(data) {
     for (var key in data) {
         for (var innerKey in data[key]) {
-            if (!parseInt(data[key][innerKey])) {
+            if (isNaN(data[key][innerKey])) {
                 data[key] = data[key][innerKey];
             } else {
                 data[key] = parseInt(data[key][innerKey]);

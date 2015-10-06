@@ -1,4 +1,5 @@
 var userProfile = require('../userProfile');
+var common = require('../common');
 
 module.exports = displayUser;
 
@@ -12,7 +13,7 @@ function buildSlackResponse(input) {
     response += '\nUser: ' + input.username;
     response += '\nFighters: ' + input.fighters;
     response += '\nShields: ' + input.shields;
-    response += '\nCurrency: $' + parseInt(input.currency).toFixed(2);
+    response += '\nCurrency: $' + common.moneyFormat(input.currency);
     response += '\nFuel: ' + input.fuel + '/'+ input.maxFuel;
     if(input.iron){
         response += '\nIron: ' + input.iron;

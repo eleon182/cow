@@ -30,7 +30,7 @@ function scanAdjacent(data, callback) {
 
 function calculatePrice(input) {
     var response = '';
-    if (input.stock === '0') {
+    if (input.stock === 0) {
         response = 0;
     } else {
         for (var key in input) {

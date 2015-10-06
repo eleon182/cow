@@ -13,7 +13,7 @@ function getPort(data, callback) {
         TableName: table,
         Key: {
             sector: {
-                "S": data.sector
+                "S": data.sector.toString()
             }
         }
     };

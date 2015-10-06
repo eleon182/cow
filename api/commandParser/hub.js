@@ -55,7 +55,7 @@ function hub(input, callback) {
             var parse = true;
             if (command.parseInt) {
                 params.arg.forEach(function(val) {
-                    if (lo.isNaN(parseInt(val))) {
+                    if (isNaN(val)) {
                         parse = false;
                     }
                 });

@@ -1,5 +1,6 @@
 var async = require('async');
 var ports = require('../port');
+var common = require('../common');
 var userProfile = require('../userProfile');
 
 module.exports = buy;
@@ -48,7 +49,7 @@ function buy(user, callback) {
                 }
             }
             amount = parseInt(amount);
-            if (portData.currentStock === '0' || amount > portData.currentStock) {
+            if (portData.currentStock == '0' || amount > portData.currentStock) {
                 return callback({
                     error: 'Insufficient stock. Available stock: ' + portData.currentStock,
                     code: 'insufficientStock'
@@ -104,7 +105,6 @@ function buy(user, callback) {
                         },
                         function(internalCallback) {
                             ports.updatePort(portParam, function(err,portVal) {
-                                console.log(err,portVal);
                                 internalCallback(null, portVal);
                             });
                         }
@@ -119,11 +119,11 @@ function buy(user, callback) {
 }
 
 function buildResponse(amount, portData, userParam) {
-    var totalPrice = (parseInt(amount * portData.price)).toFixed(2);
+    var totalPrice = common.moneyFormat(parseInt(amount * portData.price));
     var response = 'Purchase successful!';
     response += '\n```';
     response += '\nPurchased ' + amount + ' ' + portData.sell + ' for $' + totalPrice;
-    response += '\nYou now have: $' + userParam.currency.toFixed(2);
+    response += '\nYou now have: $' + common.moneyFormat(userParam.currency);
     response += '\n```';
     return response;
 }
