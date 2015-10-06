@@ -30,9 +30,13 @@ function scanAdjacent(data, callback) {
 
 function calculatePrice(input) {
     var response = '';
-    for (var key in input) {
-        if (input[key] === 'b' || input[key] === 's') {
-            response = averageStock / parseInt(input.stock) * materials[key].unitPrice;
+    if (input.stock === '0') {
+        response = 0;
+    } else {
+        for (var key in input) {
+            if (input[key] === 'b' || input[key] === 's') {
+                response = averageStock / parseInt(input.stock) * materials[key].unitPrice;
+            }
         }
     }
     return response;

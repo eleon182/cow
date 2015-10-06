@@ -28,6 +28,15 @@ function buy(user, callback) {
                         });
                     }
                 }
+                if (amount > portData.currentStock) {
+                    amount = parseInt(portData.currentStock);
+                    if (amount === 0) {
+                        return callback({
+                            error: 'Insufficient stock. Available stock: ' + portData.currentStock,
+                            code: 'insufficientStock'
+                        });
+                    }
+                }
                 if (amount * portData.price > user.profile.currency) {
                     amount = Math.floor(user.profile.currency / portData.price);
                     if (amount === 0) {
@@ -37,27 +46,19 @@ function buy(user, callback) {
                         });
                     }
                 }
-                if (amount > portData.currentStock) {
-                    amount = portData.currentStock;
-                    if (amount === 0) {
-                        return callback({
-                            error: 'Insufficient stock. Available stock: ' + portData.currentStock,
-                            code: 'insufficientStock'
-                        });
-                    }
-                }
             }
-            if (amount * portData.price > user.profile.currency) {
-                return callback({
-                    error: 'Not enough money. Required: $' + (amount * portData.price).toFixed(2) + ' | Current: $' + parseInt(user.profile.currency).toFixed(2),
-                    code: 'insufficientFunds'
-                });
-            } else if (amount > portData.currentStock) {
+            amount = parseInt(amount);
+            if (portData.currentStock === '0' || amount > portData.currentStock) {
                 return callback({
                     error: 'Insufficient stock. Available stock: ' + portData.currentStock,
                     code: 'insufficientStock'
                 });
-            } else if (portData.sell === 'fuel' && amount > (user.profile.maxFuel - user.profile.fuel)) {
+            } else if (amount * portData.price > user.profile.currency) {
+                return callback({
+                    error: 'Not enough money. Required: $' + (amount * portData.price).toFixed(2) + ' | Current: $' + parseInt(user.profile.currency).toFixed(2),
+                    code: 'insufficientFunds'
+                });
+            } else if (portData.sell === 'fuel' && amount > (parseInt(user.profile.maxFuel) - parseInt(user.profile.fuel))) {
                 return callback({
                     error: 'Insufficient fuel capacity. Available fuel capacity: ' + (user.profile.maxFuel - user.profile.fuel),
                     code: 'insufficientStock'
