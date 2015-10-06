@@ -29,6 +29,7 @@ function transwarp(input, callback) {
         input.sector = input.arg[0];
         userProfile.updateSector(input, function(err, inner) {
             input.fuel = input.profile.fuel - 3 * (navigation.getPath(params).length - 1);
+            input.profile.fuel = input.fuel;
             userProfile.updateFuel(input, function(err, inner) {
                 userProfile.getUser(input, function(err, inner2) {
                     input.profile.sector = params.end;
