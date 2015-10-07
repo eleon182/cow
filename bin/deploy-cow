@@ -1,0 +1,1 @@
+aws opsworks --profile steve --region us-east-1 create-deployment --stack-id 4df7fcad-8cb5-4abe-b3d2-8975b51ca3a4 --app-id a97acb56-8ef7-4de6-b44d-0c207d1c474e --command "{\"Name\":\"deploy\"}"

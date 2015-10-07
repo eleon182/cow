@@ -6,9 +6,7 @@ var q = require('q');
 var common = require('../common');
 var config = require('./content/config');
 
-module.exports = {
-    sendMessage: sendMessage
-};
+module.exports = sendMessage;
 
 function sendMessage(params, callback) {
     if (params.text) {

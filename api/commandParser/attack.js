@@ -1,5 +1,6 @@
 var async = require('async');
 var common = require('../common');
+var slack = require('../slackApi');
 var navigation = require('../json/navigation');
 var battleLog = require('../battleLog');
 var userProfile = require('../userProfile');
@@ -25,7 +26,6 @@ function attack(data, callback) {
         } else {
 
             performAttack(data, response, function(err, data) {
-
                 return callback(null, data);
             });
         }
@@ -147,6 +147,8 @@ function writeLog(results) {
         text: defenseResults
     });
 
+    slack.sendMessage({text: attackResults});
+    slack.sendMessage({text: defenseResults});
 }
 
 function randomizeAttack(fighters) {

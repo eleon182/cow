@@ -1,9 +1,9 @@
 var basic = {
-    token: 'xoxp-6073608023-6096680323-11723516304-06baa949ec',
+    token: 'xoxp-11905236643-11907605702-12024990999-cf738945dc',
     host: 'slack.com',
     url: '/api/chat.postMessage',
-    // channel: '#automated-reporting',
-    channel: '@eleon182',
+    channel: '#battle-log',
+    //channel: '@eleon182',
     username: 'Cow-bot'
 };
 
