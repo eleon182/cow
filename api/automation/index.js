@@ -1,3 +1,4 @@
 module.exports = {
-    emptyFuelCheck: require('./emptyFuelCheck')
+    emptyFuelCheck: require('./emptyFuelCheck'),
+    portRestock: require('./portRestock')
 };
