@@ -4,12 +4,15 @@ var lo = require('lodash');
 
 var functionList = {
     displayUser: require('./displayUser'),
+    enemyScan: require('./enemyScan'),
     displayShipTypes: require('./displayShipTypes'),
     attack: require('./attack'),
     buy: require('./buy'),
     buyFighters: require('./buyFighters'),
     buyShields: require('./buyShields'),
     buyHolds: require('./buyHolds'),
+    buyEnemyScanner: require('./buyEnemyScanner'),
+    buyTranswarp: require('./buyTranswarp'),
     getBattleLog: require('./getBattleLog'),
     sell: require('./sell'),
     getGameInfo: require('./getGameInfo'),

@@ -3,5 +3,7 @@
     "earth": 1,
     "fighterPrice": 30,
     "holdPrice": 50,
-    "shieldPrice": 20
+    "shieldPrice": 20,
+    "transwarpPrice": 5000,
+    "enemyScannerPrice": 5000
 }

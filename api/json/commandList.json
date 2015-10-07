@@ -5,8 +5,14 @@
         "func": "displayUser",
         "arg": 0
     },
+    "e": {
+        "description": "Long range enemy scan",
+        "usage": "e",
+        "func": "enemyScan",
+        "arg": 0
+    },
     "f": {
-        "description": "Full scan",
+        "description": "Adjacent sector scan",
         "usage": "f",
         "func": "scanSector",
         "arg": 0
@@ -14,41 +20,54 @@
     "b": {
         "description": "Buy goods (Enter 0 amount for smart buy)",
         "usage": "b [amount]",
+        "sellPort": true,
         "parseInt": true,
         "func": "buy",
-        "arg": 1
-    },
-    "bf": {
-        "description": "Buy fighters (Must be at StarPort)",
-        "usage": "b [amount]",
-        "parseInt": true,
-        "func": "buyFighters",
-        "arg": 1
-    },
-    "bs": {
-        "description": "Buy shields (Must be at StarPort)",
-        "usage": "b [amount]",
-        "parseInt": true,
-        "func": "buyShields",
-        "arg": 1
-    },
-    "bh": {
-        "description": "Buy cargo holds (Must be at StarPort)",
-        "usage": "b [amount]",
-        "parseInt": true,
-        "func": "buyHolds",
         "arg": 1
     },
     "s": {
         "description": "Sell goods (Enter 0 amount for smart buy)",
         "usage": "s [amount]",
+        "buyPort": true,
         "parseInt": true,
         "func": "sell",
         "arg": 1
     },
+    "bf": {
+        "description": "Buy fighters",
+        "usage": "b [amount]",
+        "starPort": true,
+        "parseInt": true,
+        "func": "buyFighters",
+        "arg": 1
+    },
+    "bs": {
+        "description": "Buy shields",
+        "usage": "b [amount]",
+        "parseInt": true,
+        "starPort": true,
+        "func": "buyShields",
+        "arg": 1
+    },
+    "bh": {
+        "description": "Buy cargo holds",
+        "usage": "b [amount]",
+        "parseInt": true,
+        "starPort": true,
+        "func": "buyHolds",
+        "arg": 1
+    },
+    "be": {
+        "description": "Buy enemy scanner",
+        "usage": "be",
+        "starPort": true,
+        "func": "buyEnemyScanner",
+        "arg": 0
+    },
     "a": {
-        "description": "Attack player (Must be in the same sector)",
+        "description": "Attack player",
         "usage": "b [username]",
+        "adjacentShip": true,
         "parseInt": false,
         "func": "attack",
         "arg": 1
