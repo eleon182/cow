@@ -1,11 +1,10 @@
 {
-  "name": "registration-tools",
+  "name": "cow",
   "version": "1.0.0",
-  "homepage": "https://github.com/eleon182/registration-tools",
   "authors": [
     "Esteban Leon"
   ],
-  "description": "Corvette registration-tools",
+  "description": "Champions of War",
   "moduleType": [
     "globals",
     "node"
