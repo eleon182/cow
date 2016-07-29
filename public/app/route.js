@@ -34,6 +34,6 @@ function getRoutes() {
             title: 'Login',
             templateUrl: '/app/pages/login/login.html'
         }
-    
+
     }];
 }
